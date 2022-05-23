@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Button, Form, Input } from 'antd';
 
 const firebaseConfig = {
@@ -10,19 +11,30 @@ const firebaseConfig = {
   appId: "1:856295550753:web:f79df1de777968086dd860"
 };
 
-const app = initializeApp(firebaseConfig);
-
 export default function Login() {
+  const handleLogin = ({ email, password }) => {
+    const app = initializeApp(firebaseConfig); // conntect to firebase
+    const auth = getAuth(app); // connect to firebase/auth
+    // login with Firebase Auth
+    signInWithEmailAndPassword(auth, email, password)
+      .then(res => console.log(res.user))
+      .catch(console.error)
+  }
   return (
     <section style={{ padding: '2em' }}>
       <Form
+        onFinish={handleLogin}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         >
-        <Form.Item label="Email" name="email">
+        <Form.Item label="Email" name="email"
+          rules={[{ required: true, message: 'Please enter a valid email' }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Password" name="password">
+        <Form.Item label="Password" name="password"
+          rules={[{ required: true, message: 'Please enter your password' }]}
+        >
           <Input.Password />
         </Form.Item>
         <Form.Item
