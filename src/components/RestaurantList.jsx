@@ -12,7 +12,7 @@ function RestaurantList() {
   }, [])
   return (
     <section>
-      <Row gutter={16}>
+      <Row>
         {!restaurants
           ? <h2>Loading...</h2>
           : restaurants.map(restaurant => (
