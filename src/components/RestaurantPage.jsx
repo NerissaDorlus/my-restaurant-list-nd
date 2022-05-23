@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 
 export default function RestaurantPage() {
@@ -12,5 +12,10 @@ export default function RestaurantPage() {
       .then(data => setRestaurant(data))
       .catch(console.error)
   }, [restaurantId])
-  return <RestaurantCard restaurant={restaurant}  />
+  return (
+    <>
+      <Link to='/'> &lt; Back</Link>
+      <RestaurantCard restaurant={restaurant}  />
+    </>
+  )
 }
