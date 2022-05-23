@@ -5,7 +5,7 @@ import { PlusCircleOutlined, QuestionCircleOutlined, UserOutlined, HomeOutlined 
 
 const { Item } = Menu;
 
-export default function Menubar() {
+export default function Menubar({ user }) {
   let navigate = useNavigate()
   return (
     <Menu theme="dark" mode="horizontal">
@@ -13,10 +13,8 @@ export default function Menubar() {
         icon={<HomeOutlined style={{ fontSize: '1.8em' }} />} />
       <Item key="add" onClick={() => navigate('/add')}
         icon={<PlusCircleOutlined style={{ fontSize: '1.8em' }} />} />
-      <Item key="random"
-        icon={<QuestionCircleOutlined style={{ fontSize: '1.8em' }} />} />
-      <Item key="user" onClick={() => navigate('/login')}
-        icon={<UserOutlined style={{ fontSize: '1.8em' }} />} />
+      {user && <Item key="random"
+        icon={<QuestionCircleOutlined style={{ fontSize: '1.8em' }} />} />}
     </Menu>
   )
 }

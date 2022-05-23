@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider,
-  signInWithPopup } from "firebase/auth";
+  signInWithPopup, 
+  createUserWithEmailAndPassword} from "firebase/auth";
 import { Button, Form, Input } from 'antd';
 
 const firebaseConfig = {
@@ -12,21 +13,24 @@ const firebaseConfig = {
   appId: "1:856295550753:web:f79df1de777968086dd860"
 };
 
-export default function Login() {
+const connectAuth = () => {
+  const app = initializeApp(firebaseConfig); // connect to firebase
+  return  getAuth(app); // connect to firebase/auth
+}
+
+export default function Login({ setUser }) {
   const handleLogin = ({ email, password }) => {
-    const app = initializeApp(firebaseConfig); // connect to firebase
-    const auth = getAuth(app); // connect to firebase/auth
+    const auth = connectAuth();
     // login with Firebase Auth
     signInWithEmailAndPassword(auth, email, password)
-      .then(res => console.log(res.user))
+      .then(res => setUser(res.user))
       .catch(console.error)
   }
   const handleGoogleLogin = () => {
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    const auth = connectAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(res => console.log(res.user))
+      .then(res => setUser(res.user))
       .catch(console.error)
   }
   return (
