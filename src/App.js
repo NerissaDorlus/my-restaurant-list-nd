@@ -5,6 +5,7 @@ import Menubar from './components/Menubar';
 import RestaurantList from './components/RestaurantList';
 import RestaurantPage from './components/RestaurantPage';
 import Login from './components/Login';
+import AddRestaurant from './components/AddRestaurant';
 import './App.css';
 
 const { Header, Content } = Layout;
@@ -27,7 +28,7 @@ function App() {
               <Route path='/add' element={
                 !user 
                   ? <Login />
-                  : <h1>Add Restaurant</h1>
+                  : <AddRestaurant />
               } />
               <Route path='/' element={<RestaurantList />} />
             </Routes>
